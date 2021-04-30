@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Şifre Yöneticisi</string>
+    <string name="yeni_bir_veritaban_a">Yeni Bir Veritabanı Aç</string>
+    <string name="d_ar_dan_veritaban_a">Dışarıdan Veritabanı Aç</string>
+    <string name="todo">TODO</string>
+    <string name="mevcut_veritabanlar">Mevcut Veritabanları</string>
+    <string name="app_con">App İcon</string>
 </resources>
