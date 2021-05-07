@@ -6,4 +6,10 @@
     <string name="mevcut_veritabanlar">Mevcut Veritabanları</string>
     <string name="app_con">App İcon</string>
     <string name="dbname">DBNAME</string>
+    <string name="yeni_veritaban_olu_t_r">Yeni Veritabanı Oluştır</string>
+    <string name="yeni_veri_taban_olu_tur">Yeni Veri Tabanı Oluştur</string>
+    <string name="veritaban_ad">Veritabanı Adı</string>
+    <string name="ifre">Şifre</string>
+    <string name="ifre_tekrar">Şifre Tekrar</string>
+    <string name="olu_tur">Oluştur</string>
 </resources>

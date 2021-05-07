@@ -25,6 +25,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/btn_home_style"
         android:fontFamily="sans-serif-condensed-light"
+        android:onClick="openNewDb"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:text="@string/yeni_bir_veritaban_a"

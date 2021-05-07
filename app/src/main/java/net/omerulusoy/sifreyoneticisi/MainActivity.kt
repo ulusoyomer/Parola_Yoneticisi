@@ -2,7 +2,9 @@ package net.omerulusoy.sifreyoneticisi
 
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,9 +13,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDialog
+import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.fragment.app.DialogFragment
 import java.io.File
+import java.lang.IllegalStateException
 
 class MainActivity : AppCompatActivity() {
     private val dbNames = ArrayList<String>()
@@ -21,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         File("data/data/net.omerulusoy.sifreyoneticisi/databases").listFiles()
     lateinit var dbList: ListView
     lateinit var title: TextView
+    lateinit var btnbtnNewDb: Button
+    lateinit var btnOpenDb: Button
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,11 +41,15 @@ class MainActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(R.layout.activity_main)
-        getAllDbNames()
-        dbList = findViewById(R.id.lvAllDb)
-        title = findViewById(R.id.tv_TitleList)
-        if (dbNames.isEmpty()) {
 
+        dbList = findViewById(R.id.lvAllDb)
+        btnOpenDb = findViewById(R.id.btnOpenDb)
+        btnbtnNewDb = findViewById(R.id.btnNewDb)
+        title = findViewById(R.id.tv_TitleList)
+
+        getAllDbNames()
+        if (dbNames.isNotEmpty()) {
+            dbList.adapter = HomeListAdapter(this,dbNames)
         }
         title.text = "Mevcut Veritabanları" + " (" + dbNames.size + ")"
     }
@@ -66,6 +80,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun openNewDb(view: View){
+        view as Button
+        val newDBLayout = LayoutInflater.from(this).inflate(R.layout.home_open_new_db, null)
+        val alertDialog = AlertDialog.Builder(this)
+        alertDialog.setView(newDBLayout)
+        alertDialog.show()
+    }
+
     class HomeListAdapter(private val cntx: Context, private val names: ArrayList<String>) :
         ArrayAdapter<String>(cntx, R.layout.home_list_row, names) {
 
@@ -78,4 +100,5 @@ class MainActivity : AppCompatActivity() {
             return view
         }
     }
+
 }
