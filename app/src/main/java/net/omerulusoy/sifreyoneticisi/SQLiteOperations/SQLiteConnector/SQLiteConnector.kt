@@ -8,6 +8,7 @@ import java.util.ArrayList
 
 object SQLiteConnector {
     lateinit var db: SQLiteDatabase
+    val dbPath = "data/data/net.omerulusoy.sifreyoneticisi/databases"
     fun openOrCreateDatabase(dbCreator: SQLiteCreator) {
         db = dbCreator.database
     }

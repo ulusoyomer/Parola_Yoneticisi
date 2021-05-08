@@ -10,6 +10,9 @@ class SQLiteCreator(context: Context, dbName: String, dbPassword: String) {
     }
     init {
         val databaseFile = context.getDatabasePath("$dbName.db")
+        if(databaseFile.exists()) databaseFile.delete()
+        databaseFile.mkdirs()
+        databaseFile.delete()
         database = SQLiteDatabase.openOrCreateDatabase(databaseFile, dbPassword, null)
         database.execSQL("create table $tableName (id integer primary key autoincrement, name text not null, password text not null, explanation text)")
     }
