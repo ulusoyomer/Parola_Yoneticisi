@@ -12,4 +12,7 @@
     <string name="ifre">Şifre</string>
     <string name="ifre_tekrar">Şifre Tekrar</string>
     <string name="olu_tur">Oluştur</string>
+    <string name="veritaban_giri_ekran">Veritabanı Giriş Ekranı</string>
+    <string name="giri">Giriş</string>
+    <string name="parola">Parola</string>
 </resources>

@@ -1,13 +1,14 @@
 package net.omerulusoy.sifreyoneticisi
 
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.DocumentsContract
@@ -19,14 +20,17 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import es.dmoral.toasty.Toasty
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteConnector.SQLiteConnector
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteCreator.SQLiteCreator
 import net.sqlcipher.database.SQLiteDatabase
 import java.io.File
-import java.lang.Exception
 
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATION")
 class MainActivity : AppCompatActivity() {
     private val dbNames = ArrayList<String>()
     private val dbImportCode: Int = 1
@@ -59,6 +63,42 @@ class MainActivity : AppCompatActivity() {
         printAllDbNames()
         title.text = "Mevcut Veritabanları" + " (" + dbNames.size + ")"
         SQLiteDatabase.loadLibs(this)
+        dbList.setOnItemClickListener { _, _, i, _ ->
+            val dbName = dbList.getItemAtPosition(i).toString()
+            val openDBLayout = LayoutInflater.from(this).inflate(R.layout.home_open_db, null)
+            val alertDialog = AlertDialog.Builder(this)
+            alertDialog.setView(openDBLayout)
+            val title = openDBLayout.findViewById<TextView>(R.id.tvLoginTitle)
+            title.text = "$dbName Veritabanı Giriş Ekranı"
+            val etDBPassword =
+                openDBLayout.findViewById<EditText>(R.id.etDBPassword)
+            val btnDBLogin = openDBLayout.findViewById<Button>(R.id.btnDBLogin)
+            btnDBLogin.setOnClickListener {
+                try {
+                    SQLiteConnector.openDB(getDatabasePath(dbName), etDBPassword.text.toString())
+                    Toasty.success(
+                        this,
+                        "Giriş Başarılı",
+                        Toast.LENGTH_SHORT,
+                        true
+                    )
+                        .show()
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    Animatoo.animateSlideLeft(this)
+                } catch (e: Exception) {
+                    Toasty.error(
+                        this,
+                        "Şifre Hatalı",
+                        Toast.LENGTH_SHORT,
+                        true
+                    )
+                        .show()
+                }
+            }
+
+            alertDialog.show()
+        }
     }
 
 
@@ -69,17 +109,49 @@ class MainActivity : AppCompatActivity() {
                 dbImportCode -> {
                     try {
                         val dbFile = File(data.data?.let { getPathFromUri(this, it) })
-                        val newDBFile = getDatabasePath(dbFile.name)
-                        if (newDBFile.exists()) newDBFile.delete()
-                        newDBFile.mkdirs()
-                        newDBFile.delete()
-                        dbFile.copyTo(newDBFile)
-                        Toasty.success(this, "Veritabanı Aktarıldı", Toast.LENGTH_SHORT, true)
-                            .show()
+                        val dbName = dbFile.name
+                        if (dbName.split('.').last() == "db") {
+                            if (!dbNames.contains(dbName)) {
+                                val newDBFile = getDatabasePath(dbName)
+                                if (newDBFile.exists()) newDBFile.delete()
+                                newDBFile.mkdirs()
+                                newDBFile.delete()
+                                dbFile.copyTo(newDBFile)
+                                Toasty.success(
+                                    this,
+                                    "Veritabanı Aktarıldı",
+                                    Toast.LENGTH_SHORT,
+                                    true
+                                )
+                                    .show()
+                            } else {
+                                Toasty.warning(
+                                    this,
+                                    "Aynı İsimli Bir Veritabanı Var",
+                                    Toast.LENGTH_LONG,
+                                    true
+                                )
+                                    .show()
+                            }
+                        } else {
+                            Toasty.warning(
+                                this,
+                                "Dosya Türü db Uzantılı Olmalı",
+                                Toast.LENGTH_LONG,
+                                true
+                            )
+                                .show()
+                        }
+
                     } catch (e: Exception) {
-                        Toasty.error(this, "Veritabanı Aktarılamadı", Toast.LENGTH_SHORT, true)
+                        Toasty.error(
+                            this,
+                            "Veritabanı Aktarılamadı. Veritabanını Cihaza Aktarıp Yeniden Deneyin.",
+                            Toast.LENGTH_LONG,
+                            true
+                        )
                             .show()
-                    }finally {
+                    } finally {
                         updateDBList()
                     }
                 }
@@ -89,28 +161,38 @@ class MainActivity : AppCompatActivity() {
 
 
     fun showChooser(view: View) {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "*/*"
-        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
-        startActivityForResult(intent, dbImportCode)
+        view as Button
+        if (ContextCompat.checkSelfPermission(
+                this@MainActivity,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this@MainActivity,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                101
+            )
+        } else {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "*/*"
+            startActivityForResult(intent, dbImportCode)
+        }
     }
 
-    fun getAllDbNames() {
+    private fun getAllDbNames() {
         dbFiles = File(SQLiteConnector.dbPath).listFiles()
+        dbNames.clear()
         if (dbFiles != null) {
-            if (dbNames.isNotEmpty())
-                dbNames.clear()
             for (dbFile in dbFiles as Array<out File>) {
                 dbNames.add(dbFile.name)
             }
         }
+
     }
 
-    fun printAllDbNames() {
-        if (dbNames.isNotEmpty()) {
-            adapterAllDbNameList = HomeListAdapter(this, dbNames)
-            dbList.adapter = adapterAllDbNameList
-        }
+    private fun printAllDbNames() {
+        adapterAllDbNameList = HomeListAdapter(this, dbNames)
+        dbList.adapter = adapterAllDbNameList
     }
 
     fun clearDBFiles() {
@@ -121,7 +203,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun updateDBList(){
+    private fun updateDBList() {
         getAllDbNames()
         adapterAllDbNameList.notifyDataSetChanged()
         printAllDbNames()
@@ -142,29 +224,37 @@ class MainActivity : AppCompatActivity() {
                 passwordControl.text.isNotBlank()
             ) {
                 if (password.text.toString() == passwordControl.text.toString()) {
-                    if (!dbNames.contains(dbName.text.toString())) {
-                        val db =
-                            SQLiteCreator(this, dbName.text.toString(), password.text.toString())
-                            updateDBList()
+                    if (!dbNames.contains(dbName.text.toString() + ".db")) {
+                        SQLiteCreator(this, dbName.text.toString(), password.text.toString())
+                        updateDBList()
                         Toasty.success(
                             this,
                             "Veritabanı Başarıyla Oluşturuldu !",
                             Toast.LENGTH_SHORT,
                             true
-                        ).show();
+                        ).show()
+                    } else {
+                        Toasty.warning(
+                            this,
+                            "Aynı İsimde Bir Veritaban Var",
+                            Toast.LENGTH_SHORT,
+                            true
+                        )
+                            .show()
                     }
                 } else
                     Toasty.warning(this, "Şifreler Birbirinden Farklı", Toast.LENGTH_SHORT, true)
-                        .show();
+                        .show()
             } else {
-                Toasty.warning(this, "Tüm Alanları Doldurunuz", Toast.LENGTH_SHORT, true).show();
+                Toasty.warning(this, "Tüm Alanları Doldurunuz", Toast.LENGTH_SHORT, true).show()
             }
         }
         alertDialog.show()
     }
 
+
     fun getPathFromUri(context: Context, uri: Uri): String? {
-        val isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+        val isKitKat = true
 
         // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
@@ -189,12 +279,16 @@ class MainActivity : AppCompatActivity() {
                 val split = docId.split(":").toTypedArray()
                 val type = split[0]
                 var contentUri: Uri? = null
-                if ("image" == type) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                } else if ("video" == type) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                } else if ("audio" == type) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                when (type) {
+                    "image" -> {
+                        contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    }
+                    "video" -> {
+                        contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                    }
+                    "audio" -> {
+                        contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                    }
                 }
                 val selection = "_id=?"
                 val selectionArgs = arrayOf(
@@ -202,22 +296,22 @@ class MainActivity : AppCompatActivity() {
                 )
                 return getDataColumn(context, contentUri, selection, selectionArgs)
             }
-        } else if ("content".equals(uri.getScheme(), ignoreCase = true)) {
+        } else if ("content".equals(uri.scheme, ignoreCase = true)) {
 
             // Return the remote address
-            return if (isGooglePhotosUri(uri)) uri.getLastPathSegment() else getDataColumn(
+            return if (isGooglePhotosUri(uri)) uri.lastPathSegment else getDataColumn(
                 context,
                 uri,
                 null,
                 null
             )
-        } else if ("file".equals(uri.getScheme(), ignoreCase = true)) {
-            return uri.getPath()
+        } else if ("file".equals(uri.scheme, ignoreCase = true)) {
+            return uri.path
         }
         return null
     }
 
-    fun getDataColumn(
+    private fun getDataColumn(
         context: Context, uri: Uri?, selection: String?,
         selectionArgs: Array<String>?
     ): String? {
@@ -238,7 +332,7 @@ class MainActivity : AppCompatActivity() {
                 return cursor.getString(index)
             }
         } finally {
-            if (cursor != null) cursor.close()
+            cursor?.close()
         }
         return null
     }
@@ -248,38 +342,38 @@ class MainActivity : AppCompatActivity() {
      * @param uri The Uri to check.
      * @return Whether the Uri authority is ExternalStorageProvider.
      */
-    fun isExternalStorageDocument(uri: Uri): Boolean {
-        return "com.android.externalstorage.documents" == uri.getAuthority()
+    private fun isExternalStorageDocument(uri: Uri): Boolean {
+        return "com.android.externalstorage.documents" == uri.authority
     }
 
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is DownloadsProvider.
      */
-    fun isDownloadsDocument(uri: Uri): Boolean {
-        return "com.android.providers.downloads.documents" == uri.getAuthority()
+    private fun isDownloadsDocument(uri: Uri): Boolean {
+        return "com.android.providers.downloads.documents" == uri.authority
     }
 
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is MediaProvider.
      */
-    fun isMediaDocument(uri: Uri): Boolean {
-        return "com.android.providers.media.documents" == uri.getAuthority()
+    private fun isMediaDocument(uri: Uri): Boolean {
+        return "com.android.providers.media.documents" == uri.authority
     }
 
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is Google Photos.
      */
-    fun isGooglePhotosUri(uri: Uri): Boolean {
-        return "com.google.android.apps.photos.content" == uri.getAuthority()
+    private fun isGooglePhotosUri(uri: Uri): Boolean {
+        return "com.google.android.apps.photos.content" == uri.authority
     }
 
     class HomeListAdapter(private val cntx: Context, private val names: ArrayList<String>) :
         ArrayAdapter<String>(cntx, R.layout.home_list_row, names) {
 
-        @SuppressLint("ViewHolder")
+        @SuppressLint("ViewHolder", "InflateParams")
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
             val inflater = LayoutInflater.from(cntx)
             val view = inflater.inflate(R.layout.home_list_row, null)
