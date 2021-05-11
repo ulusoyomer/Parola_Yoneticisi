@@ -2,9 +2,13 @@ package net.omerulusoy.sifreyoneticisi
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.WindowManager
+import android.widget.Toast
+import es.dmoral.toasty.Toasty
 
 class HomeActivity : AppCompatActivity() {
+    var backTap = false
     private val alphabet = arrayOf(
         "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
         "P", "R", "S", "T", "U", "V", "Y", "Z", "X", "W"
@@ -65,6 +69,27 @@ class HomeActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(R.layout.activity_home)
+    }
+
+    override fun onBackPressed() {
+        if (backTap)
+            super.onBackPressed()
+        else{
+            Toasty.info(
+                this,
+                "Çıkmak İçin Birdaha Basın",
+                Toast.LENGTH_SHORT,
+                true
+            )
+                .show()
+            backTap = true
+            Handler().postDelayed({
+                run{
+                    backTap = false
+                }
+            },2000)
+
+        }
     }
 
     fun createPassword(length: Int, selectedMethods: Array<String>): String {

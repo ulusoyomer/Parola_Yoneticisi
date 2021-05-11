@@ -17,6 +17,7 @@ object SQLiteConnector {
 
     fun closeDatabase() {
         db?.close()
+        db = null
     }
 
     private fun setAccount(account: Account): ContentValues {
