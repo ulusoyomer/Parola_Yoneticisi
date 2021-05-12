@@ -15,4 +15,6 @@
     <string name="veritaban_giri_ekran">Veritabanı Giriş Ekranı</string>
     <string name="giri">Giriş</string>
     <string name="parola">Parola</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
