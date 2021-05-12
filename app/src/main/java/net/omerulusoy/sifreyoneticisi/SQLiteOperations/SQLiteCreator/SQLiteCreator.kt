@@ -14,7 +14,7 @@ class SQLiteCreator(context: Context, dbName: String, dbPassword: String) {
         databaseFile.mkdirs()
         databaseFile.delete()
         database = SQLiteDatabase.openOrCreateDatabase(databaseFile, dbPassword, null)
-        database.execSQL("create table $tableName (id integer primary key autoincrement, name text not null, password text not null, explanation text)")
+        database.execSQL("create table $tableName (id integer primary key autoincrement, name text not null, password text not null)")
     }
 
 }

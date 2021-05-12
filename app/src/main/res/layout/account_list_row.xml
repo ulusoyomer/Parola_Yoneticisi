@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#233181">
+    android:layout_height="wrap_content"
+    android:background="#233181"
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/tvAccountID"
@@ -19,6 +20,7 @@
         android:id="@+id/etAccountName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:autofillHints="@string/kullan_c_ad"
         android:backgroundTint="@color/pink"
         android:ems="10"
         android:hint="@string/kullan_c_ad"
@@ -27,14 +29,14 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAccountID"
-        android:autofillHints="@string/kullan_c_ad" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAccountID" />
 
     <EditText
         android:id="@+id/etAccountPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:autofillHints="@string/ifre"
         android:backgroundTint="@color/pink"
         android:ems="10"
         android:hint="@string/ifre"
@@ -43,8 +45,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAccountName"
-        android:autofillHints="@string/ifre" />
+        app:layout_constraintTop_toBottomOf="@+id/etAccountName" />
 
     <Button
         android:id="@+id/btnUpdate"

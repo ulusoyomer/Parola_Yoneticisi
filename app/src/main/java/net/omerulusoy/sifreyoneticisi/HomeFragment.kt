@@ -5,17 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-
-
+import android.widget.ListView
 
 
 class HomeFragment : Fragment() {
 
+    private var lvAccountsList:ListView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        lvAccountsList = view?.findViewById(R.id.lv_AccountsList)
     }
 
     override fun onCreateView(
