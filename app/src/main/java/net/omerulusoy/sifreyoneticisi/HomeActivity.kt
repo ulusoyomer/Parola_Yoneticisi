@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import android.widget.Toast
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import es.dmoral.toasty.Toasty
 
 class HomeActivity : AppCompatActivity() {
@@ -60,6 +61,8 @@ class HomeActivity : AppCompatActivity() {
         "symbols" to symbols, "numbers" to numbers
     )
 
+    lateinit var bottomNavigation: MeowBottomNavigation
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_ŞifreYöneticisi)
@@ -69,6 +72,30 @@ class HomeActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(R.layout.activity_home)
+        bottomNavigation = findViewById(R.id.bottomNavigation)
+        bottomNavigation.add(MeowBottomNavigation.Model(0,R.drawable.ic_home))
+        bottomNavigation.add(MeowBottomNavigation.Model(1,R.drawable.ic_add))
+        bottomNavigation.add(MeowBottomNavigation.Model(2,R.drawable.ic_settings))
+
+        bottomNavigation.show(0)
+
+        bottomNavigation.setOnClickMenuListener {
+            when(it.id){
+                0 -> {
+                    Toasty.success(this,"Home",Toast.LENGTH_SHORT).show()
+                }
+                1 -> {
+                    Toasty.success(this,"Add",Toast.LENGTH_SHORT).show()
+                }
+                2 -> {
+                    Toasty.success(this,"Settings",Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    Toasty.success(this,"Nothing",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
     }
 
     override fun onBackPressed() {
