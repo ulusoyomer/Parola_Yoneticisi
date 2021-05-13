@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/pink"
+    android:backgroundTint="@color/white"
     tools:context=".HomeFragment">
 
     <TextView
@@ -13,7 +15,7 @@
         android:background="@color/logo_blue"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="@string/veritaban"
+        android:text="@string/kay_tl_hesaplar"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="24sp"
@@ -29,14 +31,29 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/svAccountSeatch" />
+        app:layout_constraintTop_toBottomOf="@+id/svAccountSeatch">
+
+    </ListView>
 
     <SearchView
         android:id="@+id/svAccountSeatch"
         android:layout_width="0dp"
         android:layout_height="33dp"
+        android:background="@color/pink"
         android:queryHint="Hesap Ara"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAccountTitle" />
+
+    <TextView
+        android:id="@+id/tvEmptyList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hesap_kayd_yok"
+        android:textColor="@color/logo_blue"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

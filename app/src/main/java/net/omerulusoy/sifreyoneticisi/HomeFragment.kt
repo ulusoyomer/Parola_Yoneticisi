@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.isVisible
 import es.dmoral.toasty.Toasty
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteConnector.SQLiteConnector
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteCreator.Tables.Account
@@ -24,6 +25,7 @@ class HomeFragment : Fragment() {
     private var lvAccountsList: ListView? = null
     private var searchView: SearchView? = null
     private lateinit var accountsList: ArrayList<Account>
+    private lateinit var tvEmptyList: TextView
     private lateinit var accountsListAdapter: UserAccountListAdapter
     lateinit var cntx: Context
 
@@ -43,14 +45,20 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         lvAccountsList = view.findViewById(R.id.lv_AccountsList)
         searchView = view.findViewById(R.id.svAccountSeatch)
+        tvEmptyList = view.findViewById(R.id.tvEmptyList)
         setAdapter(UserAccountListAdapter(cntx, accountsList))
         searchViewCreateListener()
+
     }
 
+    fun checkAccountListEmpty(){
+        tvEmptyList.isVisible = accountsList.isEmpty()
+    }
     fun setAdapter(adapter: UserAccountListAdapter){
         accountsListAdapter = adapter
         accountsListAdapter.notifyDataSetChanged()
         lvAccountsList?.adapter = accountsListAdapter
+        checkAccountListEmpty()
     }
     fun searchViewCreateListener(){
         searchView?.setOnQueryTextListener(object :SearchView.OnQueryTextListener{

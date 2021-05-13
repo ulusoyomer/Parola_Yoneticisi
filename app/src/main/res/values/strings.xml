@@ -23,4 +23,6 @@
     <string name="g_ncelle">Güncelle</string>
     <string name="sil">Sil</string>
     <string name="kopyala">Kopyala</string>
+    <string name="hesap_kayd_yok">Hesap Kaydı Yok</string>
+    <string name="kay_tl_hesaplar">Kayıtlı Hesaplar</string>
 </resources>
