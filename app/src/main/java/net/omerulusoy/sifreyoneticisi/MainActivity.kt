@@ -99,6 +99,7 @@ class MainActivity : AppCompatActivity() {
 
             alertDialog.show()
         }
+
     }
 
     override fun onResume() {

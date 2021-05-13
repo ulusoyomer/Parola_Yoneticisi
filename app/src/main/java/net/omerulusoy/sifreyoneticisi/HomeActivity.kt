@@ -11,9 +11,9 @@ import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import es.dmoral.toasty.Toasty
 
 class HomeActivity : AppCompatActivity() {
-    var backTap = false
+    private var backTap = false
 
-    lateinit var bottomNavigation: MeowBottomNavigation
+    private lateinit var bottomNavigation: MeowBottomNavigation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +28,13 @@ class HomeActivity : AppCompatActivity() {
         bottomNavigation.add(MeowBottomNavigation.Model(0, R.drawable.ic_home))
         bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.ic_add))
         bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.ic_settings))
-        addFragment(HomeFragment.newInstance())
+        addFragment(HomeFragment.newInstance(this))
         bottomNavigation.show(0)
 
         bottomNavigation.setOnClickMenuListener {
             when (it.id) {
                 0 -> {
-                    replaceFragment(HomeFragment.newInstance())
+                    replaceFragment(HomeFragment.newInstance(this))
                 }
                 1 -> {
                     replaceFragment(AddAccountFragment.newInstance())
@@ -53,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onBackPressed() {
 
         if (backTap) {
-            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             super.onBackPressed()
         } else {
             Toasty.info(

@@ -24,7 +24,6 @@ object SQLiteConnector {
         val contentValues = ContentValues()
         contentValues.put("name", account.name)
         contentValues.put("password", account.password)
-        contentValues.put("explanation", account.explanation)
         return contentValues
     }
 
@@ -52,9 +51,8 @@ object SQLiteConnector {
                     val id = cursor.getInt(cursor.getColumnIndex("id"))
                     val name = cursor.getString(cursor.getColumnIndex("name"))
                     val password = cursor.getString(cursor.getColumnIndex("password"))
-                    val explanation = cursor.getString(cursor.getColumnIndex("explanation"))
 
-                    val tmpAccount = Account(id,name,password,explanation)
+                    val tmpAccount = Account(id,name,password)
                     accountList.add(tmpAccount)
                     cursor.moveToNext()
                 }
