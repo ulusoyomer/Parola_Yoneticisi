@@ -51,26 +51,34 @@ class HomeFragment : Fragment() {
 
     }
 
-    fun checkAccountListEmpty(){
+    fun checkAccountListEmpty() {
         tvEmptyList.isVisible = accountsList.isEmpty()
     }
-    fun setAdapter(adapter: UserAccountListAdapter){
+
+    fun updateList(){
+        accountsList = SQLiteConnector.getAllAccounts()
+        setAdapter(UserAccountListAdapter(cntx, accountsList))
+    }
+
+    fun setAdapter(adapter: UserAccountListAdapter) {
         accountsListAdapter = adapter
         accountsListAdapter.notifyDataSetChanged()
         lvAccountsList?.adapter = accountsListAdapter
         checkAccountListEmpty()
     }
-    fun searchViewCreateListener(){
-        searchView?.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+
+    fun searchViewCreateListener() {
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return false
             }
+
             override fun onQueryTextChange(p0: String?): Boolean {
                 val filterAccounts = ArrayList<Account>()
-                for (account in accountsList){
-                    if (p0?.let { account.name.contains(it) } == true){
+                for (account in accountsList) {
+                    if (p0?.let { account.name.contains(it) } == true) {
                         filterAccounts.add(account)
-                        setAdapter(UserAccountListAdapter(cntx,filterAccounts))
+                        setAdapter(UserAccountListAdapter(cntx, filterAccounts))
                     }
                 }
                 return false
@@ -111,7 +119,39 @@ class HomeFragment : Fragment() {
             etAccountName.setText(accounts[position].name)
             etAccountPassword.setText(accounts[position].password)
 
-            btnUpdate.setOnClickListener { }
+            btnUpdate.setOnClickListener {
+                val updateAccountLayout =
+                    LayoutInflater.from(cntx).inflate(R.layout.account_update_layout, null)
+                val alertDialog = androidx.appcompat.app.AlertDialog.Builder(cntx)
+                alertDialog.setView(updateAccountLayout)
+                val accountName = updateAccountLayout.findViewById<EditText>(R.id.etUpdateUserName)
+                val accountPassword =
+                    updateAccountLayout.findViewById<EditText>(R.id.etUpdatePassword)
+                val btnUpdateUpdate = updateAccountLayout.findViewById<Button>(R.id.btnUpdateUpdate)
+                val btnRandomPass = updateAccountLayout.findViewById<Button>(R.id.btnAutoPassword)
+                accountName.setText(accounts[position].name)
+                accountPassword.setText(accounts[position].password)
+                btnUpdateUpdate.setOnClickListener {
+                    try {
+                        SQLiteConnector.updateAccount(
+                            Account(
+                                accounts[position].id,
+                                accountName.text.toString(), accountPassword.text.toString()
+                            )
+                        )
+                        updateList()
+                        Toasty.success(cntx, "Hesap Başarıyla Güncellendi", Toast.LENGTH_SHORT)
+                            .show()
+                    } catch (e: Exception) {
+                        Toasty.error(cntx, "Güncelleme Hatası", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+                btnRandomPass.setOnClickListener {
+
+                }
+                alertDialog.show()
+            }
             btnDelete.setOnClickListener {
                 AlertDialog.Builder(cntx)
                     .setTitle("Hesap Silme İşlemi")
@@ -119,8 +159,7 @@ class HomeFragment : Fragment() {
                     .setPositiveButton("Evet") { _, _ ->
                         try {
                             SQLiteConnector.deleteAccount(tvAccountID.text.toString().toInt())
-                            accountsList = SQLiteConnector.getAllAccounts()
-                            setAdapter(UserAccountListAdapter(cntx, accountsList))
+                            updateList()
                             Toasty.success(cntx, "Hesap Başarıyla Silindi", Toast.LENGTH_SHORT)
                                 .show()
                         } catch (e: Exception) {

@@ -15,7 +15,6 @@
     <string name="veritaban_giri_ekran">Veritabanı Giriş Ekranı</string>
     <string name="giri">Giriş</string>
     <string name="parola">Parola</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="veritaban">Veritabanı</string>
     <string name="textview">TextView</string>
@@ -25,4 +24,6 @@
     <string name="kopyala">Kopyala</string>
     <string name="hesap_kayd_yok">Hesap Kaydı Yok</string>
     <string name="kay_tl_hesaplar">Kayıtlı Hesaplar</string>
+    <string name="rastgele_parola">Rastgele Parola</string>
+    <string name="rastegele_parola_ayarlar_n_yeni_hesap_ekleme_sayfas_ndan_de_i_tirebilirsiniz">Rastegele Parola Ayarlarını Yeni Hesap Ekleme Sayfasından Değiştirebilirsiniz</string>
 </resources>

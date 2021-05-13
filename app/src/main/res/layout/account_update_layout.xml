@@ -1,6 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="8dp">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/kullan_c_ad"
+        android:textColor="@color/logo_blue"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etUpdateUserName" />
+
+    <EditText
+        android:id="@+id/etUpdateUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:autofillHints="@string/kullan_c_ad"
+        android:backgroundTint="@color/pink"
+        android:ems="10"
+        android:hint="@string/kullan_c_ad"
+        android:inputType="textPersonName"
+        android:textColor="@color/logo_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvUpdatePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/ifre"
+        android:textColor="@color/logo_blue"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/etUpdatePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:autofillHints="@string/ifre"
+        android:backgroundTint="@color/pink"
+        android:ems="10"
+        android:hint="@string/ifre"
+        android:inputType="textPersonName"
+        android:textColor="@color/logo_blue"
+        app:layout_constraintStart_toStartOf="@+id/etUpdateUserName"
+        app:layout_constraintTop_toBottomOf="@+id/etUpdateUserName"
+        tools:ignore="TextFields" />
+
+    <Button
+        android:id="@+id/btnUpdateUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_new_db"
+        android:padding="5dp"
+        android:text="@string/g_ncelle"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/etUpdatePassword"
+        app:layout_constraintTop_toBottomOf="@+id/etUpdatePassword" />
+
+    <Button
+        android:id="@+id/btnAutoPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/btn_new_db"
+        android:padding="5dp"
+        android:text="@string/rastgele_parola"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnUpdateUpdate"
+        app:layout_constraintTop_toTopOf="@+id/btnUpdateUpdate" />
+
+    <TextView
+        android:id="@+id/tvRandomPassInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="8dp"
+        android:text="@string/rastegele_parola_ayarlar_n_yeni_hesap_ekleme_sayfas_ndan_de_i_tirebilirsiniz"
+        android:textColor="@color/logo_blue"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAutoPassword" />
 </androidx.constraintlayout.widget.ConstraintLayout>
