@@ -26,4 +26,12 @@
     <string name="kay_tl_hesaplar">Kayıtlı Hesaplar</string>
     <string name="rastgele_parola">Rastgele Parola</string>
     <string name="rastegele_parola_ayarlar_n_yeni_hesap_ekleme_sayfas_ndan_de_i_tirebilirsiniz">Rastegele Parola Ayarlarını Yeni Hesap Ekleme Sayfasından Değiştirebilirsiniz</string>
+    <string name="yeni_hesap_kay_t">Yeni Hesap Kayıt</string>
+    <string name="ekle">Ekle</string>
+    <string name="ifre_olu_tur">Şifre Oluştur</string>
+    <string name="ifre_olu_turma_ayarlar">Şifre Oluşturma Ayarları</string>
+    <string name="t_m_alfabe_a_z">Tüm Alfabe (A-Z)</string>
+    <string name="rakamalar_0_9">Rakamalar (0-9)</string>
+    <string name="semboller">Semboller (?,#@..)</string>
+    <string name="t_rk_e_karakterler">Türkçe Karakterler</string>
 </resources>

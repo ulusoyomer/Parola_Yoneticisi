@@ -37,7 +37,7 @@ class HomeActivity : AppCompatActivity() {
                     replaceFragment(HomeFragment.newInstance(this))
                 }
                 1 -> {
-                    replaceFragment(AddAccountFragment.newInstance())
+                    replaceFragment(AddAccountFragment.newInstance(this))
                 }
                 2 -> {
                     replaceFragment(SettingsFragment.newInstance())

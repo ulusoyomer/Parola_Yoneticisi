@@ -6,7 +6,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -51,7 +50,7 @@ class HomeFragment : Fragment() {
 
     }
 
-    fun checkAccountListEmpty() {
+    private fun checkAccountListEmpty() {
         tvEmptyList.isVisible = accountsList.isEmpty()
     }
 
@@ -67,7 +66,19 @@ class HomeFragment : Fragment() {
         checkAccountListEmpty()
     }
 
-    fun searchViewCreateListener() {
+    fun clickCopy(copyTitle:String,copyString:String,toastMessage:String){
+        val clipboard = cntx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip =
+            ClipData.newPlainText(copyTitle, copyString)
+        clipboard.setPrimaryClip(clip)
+        Toasty.success(
+            cntx,
+            toastMessage,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun searchViewCreateListener() {
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return false
@@ -176,17 +187,9 @@ class HomeFragment : Fragment() {
                     .setNegativeButton("Hayır", null).show()
             }
             btnCopy.setOnClickListener {
-                val clipboard = cntx.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip =
-                    ClipData.newPlainText("${etAccountName.text} Password", etAccountPassword.text)
-                clipboard.setPrimaryClip(clip)
-                Toasty.success(
-                    cntx,
-                    "\"${etAccountName.text} Parolası Kopyalandı\"",
-                    Toast.LENGTH_SHORT
-                ).show()
+                clickCopy("net.omerulusoy.sifreyoneticisi ${etAccountName.text} Password",
+                etAccountPassword.text.toString(),"${etAccountName.text} hesabın parolası kopyalandı")
             }
-
 
             return view
         }

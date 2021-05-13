@@ -1,5 +1,6 @@
 package net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteConnector
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.SharedPreferences
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteCreator.SQLiteCreator
@@ -114,6 +115,32 @@ object SQLiteConnector {
         return accountList
     }
 
+    @SuppressLint("CommitPrefEdits")
+    fun changeSharedPreferences(sharedPreferences: SharedPreferences,value:Any,who:String){
+        val editor = sharedPreferences.edit()
+        editor.apply{
+            when(who){
+                "alphabet"->{
+                    putBoolean("alphabet",value.toString().toBoolean())
+                }
+                "trChars"->{
+                    putBoolean("trChars",value.toString().toBoolean())
+                }
+                "symbols"->{
+                    putBoolean("symbols",value.toString().toBoolean())
+                }
+                "numbers"->{
+                    putBoolean("numbers",value.toString().toBoolean())
+                }
+                "passLength"->{
+                    putInt("passLength",value.toString().toInt())
+                }
+            }
+        }.apply()
+
+    }
+
+
     fun returnPassLength(sharedPreferences: SharedPreferences): Int {
         return sharedPreferences.getInt("passLength", 10)
     }
@@ -137,7 +164,7 @@ object SQLiteConnector {
 
     fun createPassword(length: Int, selectedMethods: ArrayList<String>): String {
         var tmpString = ""
-        for (i in 0..length) {
+        for (i in 0 until length) {
             val method = selectedMethods.random()
             if (method == "alphabet" || method == "trChars") {
                 tmpString += if ((0..1).random() == 0)
