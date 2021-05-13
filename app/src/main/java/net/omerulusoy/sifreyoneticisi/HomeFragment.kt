@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
         tvEmptyList.isVisible = accountsList.isEmpty()
     }
 
-    fun updateList(){
+    fun updateList() {
         accountsList = SQLiteConnector.getAllAccounts()
         setAdapter(UserAccountListAdapter(cntx, accountsList))
     }
@@ -148,7 +148,13 @@ class HomeFragment : Fragment() {
                     }
                 }
                 btnRandomPass.setOnClickListener {
-
+                    val sharedPreferences =
+                        cntx.getSharedPreferences("net.omerulusoy.sifreyoneticisi", Context.MODE_PRIVATE)
+                    val tmpPass = SQLiteConnector.createPassword(
+                        SQLiteConnector.returnPassLength(sharedPreferences),
+                        SQLiteConnector.returnSelectedMethods(sharedPreferences)
+                    )
+                    accountPassword.setText(tmpPass)
                 }
                 alertDialog.show()
             }
