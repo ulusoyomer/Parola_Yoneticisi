@@ -34,4 +34,13 @@
     <string name="rakamalar_0_9">Rakamalar (0-9)</string>
     <string name="semboller">Semboller (?,#@..)</string>
     <string name="t_rk_e_karakterler">Türkçe Karakterler</string>
+    <string name="ayarlar">Ayarlar</string>
+    <string name="veritaban_n_d_ar_aktar">Veritabanını Dışarı Aktar</string>
+    <string name="aktar">Aktar</string>
+    <string name="veritaban_parolas_n_de_i_tir">Veritabanı Parolasını Değiştir</string>
+    <string name="eski_parola">Eski Parola</string>
+    <string name="yeni_parola">Yeni Parola</string>
+    <string name="yeni_parola_tekrar">Yeni Parola (Tekrar)</string>
+    <string name="de_i_tir">Değiştir</string>
+    <string name="veritaban_n_sil">Veritabanını Sil</string>
 </resources>
