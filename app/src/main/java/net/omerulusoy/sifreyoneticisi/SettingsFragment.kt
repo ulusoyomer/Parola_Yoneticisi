@@ -13,7 +13,7 @@ import android.widget.EditText
 class SettingsFragment : Fragment() {
 
     lateinit var cntx:Context
-    lateinit var btnDBExport:Button
+    private lateinit var btnDBExport:Button
     lateinit var btnDBChangePassword:Button
     lateinit var btnDBDelete:Button
     lateinit var etSetOldPassword:EditText
@@ -35,6 +35,10 @@ class SettingsFragment : Fragment() {
         etSetOldPassword = view.findViewById(R.id.etSetOldPassword)
         etSetNewPassword = view.findViewById(R.id.etSetNewPassword)
         etSetNewPasswordAg = view.findViewById(R.id.etSetNewPasswordAg)
+
+        btnDBExport.setOnClickListener {
+
+        }
 
     }
 

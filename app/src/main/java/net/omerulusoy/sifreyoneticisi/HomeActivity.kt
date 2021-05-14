@@ -40,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
                     replaceFragment(AddAccountFragment.newInstance(this))
                 }
                 2 -> {
-                    replaceFragment(SettingsFragment.newInstance())
+                    replaceFragment(SettingsFragment.newInstance(this))
                 }
                 else -> {
                     Toasty.success(this, "Nothing", Toast.LENGTH_SHORT).show()

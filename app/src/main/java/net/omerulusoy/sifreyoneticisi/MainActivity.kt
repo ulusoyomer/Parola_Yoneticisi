@@ -3,6 +3,7 @@ package net.omerulusoy.sifreyoneticisi
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Instrumentation
 import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
@@ -168,20 +169,24 @@ class MainActivity : AppCompatActivity() {
 
     fun showChooser(view: View) {
         view as Button
-        if (ContextCompat.checkSelfPermission(
-                this@MainActivity,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this@MainActivity,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                101
-            )
-        } else {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "*/*"
-            startActivityForResult(intent, dbImportCode)
+        SQLiteConnector.writeStoragePermission(this@MainActivity)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode){
+            101->{
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    val intent = Intent(Intent.ACTION_GET_CONTENT)
+                    intent.type = "*/*"
+                    startActivityForResult(intent, dbImportCode)
+                }
+            }
         }
     }
 

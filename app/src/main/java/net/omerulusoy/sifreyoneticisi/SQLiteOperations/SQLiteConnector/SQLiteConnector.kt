@@ -1,15 +1,20 @@
 package net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteConnector
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteCreator.SQLiteCreator
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteCreator.Tables.Account
 import net.sqlcipher.database.SQLiteDatabase
@@ -68,8 +73,27 @@ object SQLiteConnector {
     private var db: SQLiteDatabase? = null
     const val dbPath = "data/data/net.omerulusoy.sifreyoneticisi/databases"
 
-    var dbPass:String = ""
-    var dbName:String = ""
+    var dbPass: String = ""
+    var dbName: String = ""
+
+    fun writeStoragePermission(context: Context): Boolean {
+        if (ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                context as Activity,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                101
+            )
+            return ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        }
+        return true
+    }
 
     fun openDB(dbFile: File, dbPassword: String) {
         dbPass = dbPassword
@@ -127,24 +151,24 @@ object SQLiteConnector {
     }
 
     @SuppressLint("CommitPrefEdits")
-    fun changeSharedPreferences(sharedPreferences: SharedPreferences,value:Any,who:String){
+    fun changeSharedPreferences(sharedPreferences: SharedPreferences, value: Any, who: String) {
         val editor = sharedPreferences.edit()
-        editor.apply{
-            when(who){
-                "alphabet"->{
-                    putBoolean("alphabet",value.toString().toBoolean())
+        editor.apply {
+            when (who) {
+                "alphabet" -> {
+                    putBoolean("alphabet", value.toString().toBoolean())
                 }
-                "trChars"->{
-                    putBoolean("trChars",value.toString().toBoolean())
+                "trChars" -> {
+                    putBoolean("trChars", value.toString().toBoolean())
                 }
-                "symbols"->{
-                    putBoolean("symbols",value.toString().toBoolean())
+                "symbols" -> {
+                    putBoolean("symbols", value.toString().toBoolean())
                 }
-                "numbers"->{
-                    putBoolean("numbers",value.toString().toBoolean())
+                "numbers" -> {
+                    putBoolean("numbers", value.toString().toBoolean())
                 }
-                "passLength"->{
-                    putInt("passLength",value.toString().toInt())
+                "passLength" -> {
+                    putInt("passLength", value.toString().toInt())
                 }
             }
         }.apply()
@@ -201,7 +225,8 @@ object SQLiteConnector {
                         // This is for checking Main Memory
                         return if ("primary".equals(type, ignoreCase = true)) {
                             if (split.size > 1) {
-                                Environment.getExternalStorageDirectory().toString() + "/" + split[1]
+                                Environment.getExternalStorageDirectory()
+                                    .toString() + "/" + split[1]
                             } else {
                                 Environment.getExternalStorageDirectory().toString() + "/"
                             }
@@ -213,7 +238,8 @@ object SQLiteConnector {
                     isDownloadsDocument(uri) -> {
                         val fileName = getFilePath(context, uri)
                         if (fileName != null) {
-                            return Environment.getExternalStorageDirectory().toString() + "/Download/" + fileName
+                            return Environment.getExternalStorageDirectory()
+                                .toString() + "/Download/" + fileName
                         }
                         var id = DocumentsContract.getDocumentId(uri)
                         if (id.startsWith("raw:")) {
@@ -221,7 +247,10 @@ object SQLiteConnector {
                             val file = File(id)
                             if (file.exists()) return id
                         }
-                        val contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id))
+                        val contentUri = ContentUris.withAppendedId(
+                            Uri.parse("content://downloads/public_downloads"),
+                            java.lang.Long.valueOf(id)
+                        )
                         return getDataColumn(context, contentUri, null, null)
                     }
                     isMediaDocument(uri) -> {
@@ -248,7 +277,12 @@ object SQLiteConnector {
             }
             "content".equals(uri.scheme, ignoreCase = true) -> {
                 // Return the remote address
-                return if (isGooglePhotosUri(uri)) uri.lastPathSegment else getDataColumn(context, uri, null, null)
+                return if (isGooglePhotosUri(uri)) uri.lastPathSegment else getDataColumn(
+                    context,
+                    uri,
+                    null,
+                    null
+                )
             }
             "file".equals(uri.scheme, ignoreCase = true) -> {
                 return uri.path
@@ -257,8 +291,10 @@ object SQLiteConnector {
         return null
     }
 
-    fun getDataColumn(context: Context, uri: Uri?, selection: String?,
-                      selectionArgs: Array<String>?): String? {
+    fun getDataColumn(
+        context: Context, uri: Uri?, selection: String?,
+        selectionArgs: Array<String>?
+    ): String? {
         var cursor: Cursor? = null
         val column = "_data"
         val projection = arrayOf(
@@ -266,8 +302,10 @@ object SQLiteConnector {
         )
         try {
             if (uri == null) return null
-            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs,
-                null)
+            cursor = context.contentResolver.query(
+                uri, projection, selection, selectionArgs,
+                null
+            )
             if (cursor != null && cursor.moveToFirst()) {
                 val index = cursor.getColumnIndexOrThrow(column)
                 return cursor.getString(index)
@@ -286,8 +324,10 @@ object SQLiteConnector {
         )
         try {
             if (uri == null) return null
-            cursor = context.contentResolver.query(uri, projection, null, null,
-                null)
+            cursor = context.contentResolver.query(
+                uri, projection, null, null,
+                null
+            )
             if (cursor != null && cursor.moveToFirst()) {
                 val index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME)
                 return cursor.getString(index)
