@@ -3,6 +3,7 @@ package net.omerulusoy.sifreyoneticisi
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,19 +12,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toFile
+import es.dmoral.toasty.Toasty
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteConnector.SQLiteConnector
+import java.io.File
+import java.io.FileOutputStream
+import java.net.URI
 
 
 class SettingsFragment : Fragment() {
 
-    lateinit var cntx:Context
-    private lateinit var btnDBExport:Button
-    lateinit var btnDBChangePassword:Button
-    lateinit var btnDBDelete:Button
-    lateinit var etSetOldPassword:EditText
-    lateinit var etSetNewPassword:EditText
-    lateinit var etSetNewPasswordAg:EditText
+    lateinit var cntx: Context
+    private lateinit var btnDBExport: Button
+    lateinit var btnDBChangePassword: Button
+    lateinit var btnDBDelete: Button
+    lateinit var etSetOldPassword: EditText
+    lateinit var etSetNewPassword: EditText
+    lateinit var etSetNewPasswordAg: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,9 +49,27 @@ class SettingsFragment : Fragment() {
         etSetNewPasswordAg = view.findViewById(R.id.etSetNewPasswordAg)
 
         btnDBExport.setOnClickListener {
-            SQLiteConnector.writeStoragePermission(cntx)
+            if (SQLiteConnector.writeStoragePermission(cntx)) {
+                createChooser()
+
+            }
         }
 
+    }
+
+    private fun createChooser() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+        intent.addCategory(Intent.CATEGORY_DEFAULT)
+        startActivityForResult(intent, 55)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == AppCompatActivity.RESULT_OK && data != null && requestCode == 55){
+            val newUri = Uri.withAppendedPath(data.data,"${SQLiteConnector.dbName}")
+            val folder = cntx.getContentResolver().openInputStream(newUri);
+
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -53,29 +78,23 @@ class SettingsFragment : Fragment() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode){
-            102->{
+        when (requestCode) {
+            102 -> {
                 if ((grantResults.isNotEmpty() &&
-                            grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    val intent = Intent(Intent.ACTION_GET_CONTENT)
-                    intent.type = "file://"
-                    startActivityForResult(intent, 55)
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                ) {
+                    createChooser()
                 }
             }
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 55 && resultCode == AppCompatActivity.RESULT_OK && data != null){
-            Log.i("PATH",data.data?.path.toString())
-        }
-    }
+
 
     companion object {
 
         @JvmStatic
-        fun newInstance(context:Context) =
+        fun newInstance(context: Context) =
             SettingsFragment().apply {
                 arguments = Bundle().apply {
                     cntx = context
