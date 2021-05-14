@@ -169,7 +169,15 @@ class MainActivity : AppCompatActivity() {
 
     fun showChooser(view: View) {
         view as Button
-        SQLiteConnector.writeStoragePermission(this@MainActivity)
+        if (SQLiteConnector.writeStoragePermission(this)){
+            createChooser()
+        }
+    }
+
+    fun createChooser(){
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "*/*"
+        startActivityForResult(intent, dbImportCode)
     }
 
     override fun onRequestPermissionsResult(
@@ -182,9 +190,7 @@ class MainActivity : AppCompatActivity() {
             101->{
                 if ((grantResults.isNotEmpty() &&
                             grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    val intent = Intent(Intent.ACTION_GET_CONTENT)
-                    intent.type = "*/*"
-                    startActivityForResult(intent, dbImportCode)
+                    createChooser()
                 }
             }
         }
