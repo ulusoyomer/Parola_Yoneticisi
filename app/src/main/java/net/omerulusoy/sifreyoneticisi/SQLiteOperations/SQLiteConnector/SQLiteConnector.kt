@@ -70,7 +70,7 @@ object SQLiteConnector {
     )
 
 
-    private var db: SQLiteDatabase? = null
+    var db: SQLiteDatabase? = null
     const val dbPath = "data/data/net.omerulusoy.sifreyoneticisi/databases"
 
     var dbPass: String = ""

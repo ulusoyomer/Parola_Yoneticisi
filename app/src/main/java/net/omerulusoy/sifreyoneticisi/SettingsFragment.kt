@@ -1,11 +1,11 @@
 package net.omerulusoy.sifreyoneticisi
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.os.Environment
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,24 +13,23 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toFile
+import com.obsez.android.lib.filechooser.ChooserDialog
 import es.dmoral.toasty.Toasty
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteConnector.SQLiteConnector
 import java.io.File
-import java.io.FileOutputStream
-import java.net.URI
+import kotlin.system.exitProcess
 
 
+@Suppress("DEPRECATION")
 class SettingsFragment : Fragment() {
 
     lateinit var cntx: Context
     private lateinit var btnDBExport: Button
-    lateinit var btnDBChangePassword: Button
-    lateinit var btnDBDelete: Button
-    lateinit var etSetOldPassword: EditText
-    lateinit var etSetNewPassword: EditText
-    lateinit var etSetNewPasswordAg: EditText
+    private lateinit var btnDBChangePassword: Button
+    private lateinit var btnDBDelete: Button
+    private lateinit var etSetOldPassword: EditText
+    private lateinit var etSetNewPassword: EditText
+    private lateinit var etSetNewPasswordAg: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,25 +50,89 @@ class SettingsFragment : Fragment() {
         btnDBExport.setOnClickListener {
             if (SQLiteConnector.writeStoragePermission(cntx)) {
                 createChooser()
-
             }
+        }
+
+        btnDBChangePassword.setOnClickListener {
+            val oldPass = etSetOldPassword.text.toString()
+            val newPass = etSetNewPassword.text.toString()
+            val newPassAg = etSetNewPasswordAg.text.toString()
+            if (oldPass.isNotEmpty() and newPass.isNotEmpty() and newPassAg.isNotEmpty()){
+                if (oldPass == SQLiteConnector.dbPass){
+                    if (newPass == newPassAg){
+                        SQLiteConnector.db?.changePassword(newPass)
+                        Toasty.success(
+                            cntx,
+                            "Parola Başarıyla Değiştirildi",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }else{
+                        Toasty.warning(
+                            cntx,
+                            "Parolar Birbiyle Uyuşmuyor",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }else{
+                    Toasty.warning(
+                        cntx,
+                        "Eski Parola Yanlış",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }else{
+                Toasty.warning(
+                    cntx,
+                    "Tüm Alanları Doldurun",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        btnDBDelete.setOnClickListener {
+            AlertDialog.Builder(cntx)
+                .setTitle("Veritabanı Silme İşlemi")
+                .setMessage("${SQLiteConnector.dbName} veritabanını silmek istiyormusunuz ?")
+                .setPositiveButton("Evet") { _, _ ->
+                    SQLiteConnector.closeDatabase()
+                    cntx.getDatabasePath(SQLiteConnector.dbName).delete()
+                    exitProcess(0)
+                }
+                .setNegativeButton("Hayır", null).show()
         }
 
     }
 
     private fun createChooser() {
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-        intent.addCategory(Intent.CATEGORY_DEFAULT)
-        startActivityForResult(intent, 55)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == AppCompatActivity.RESULT_OK && data != null && requestCode == 55){
-            val newUri = Uri.withAppendedPath(data.data,"${SQLiteConnector.dbName}")
-            val folder = cntx.getContentResolver().openInputStream(newUri);
-
-        }
+        ChooserDialog(cntx).withFilter(true, false)
+            .withStartFile(Environment.getExternalStorageDirectory().absolutePath)
+            .withChosenListener { path, _ ->
+                SQLiteConnector.closeDatabase()
+                try {
+                    val realPath = path + "/${SQLiteConnector.dbName}"
+                    val exportFile = File(realPath)
+                    val thisDB = cntx.getDatabasePath(SQLiteConnector.dbName)
+                    if (exportFile.exists()) exportFile.delete()
+                    thisDB.copyTo(exportFile)
+                    SQLiteConnector.openDB(
+                        cntx.getDatabasePath(SQLiteConnector.dbName),
+                        SQLiteConnector.dbPass
+                    )
+                    Toasty.success(
+                        cntx,
+                        "Veritabanı Başarıyla Aktarıldı",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } catch (e: Exception) {
+                    Toasty.error(
+                        cntx,
+                        "Aktarma Yapılırken Hata Oldu Farklı Bir Klasör Seçip Yeniden Deneyin",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+            .build()
+            .show()
     }
 
     override fun onRequestPermissionsResult(
@@ -88,7 +151,6 @@ class SettingsFragment : Fragment() {
             }
         }
     }
-
 
 
     companion object {
