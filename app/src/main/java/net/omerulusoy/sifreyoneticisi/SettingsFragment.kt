@@ -13,6 +13,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.obsez.android.lib.filechooser.ChooserDialog
 import es.dmoral.toasty.Toasty
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteConnector.SQLiteConnector
@@ -31,6 +34,8 @@ class SettingsFragment : Fragment() {
     private lateinit var etSetNewPassword: EditText
     private lateinit var etSetNewPasswordAg: EditText
 
+    lateinit var mAdView : AdView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,6 +51,11 @@ class SettingsFragment : Fragment() {
         etSetOldPassword = view.findViewById(R.id.etSetOldPassword)
         etSetNewPassword = view.findViewById(R.id.etSetNewPassword)
         etSetNewPasswordAg = view.findViewById(R.id.etSetNewPasswordAg)
+
+        MobileAds.initialize(cntx) {}
+        mAdView = view.findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
 
         btnDBExport.setOnClickListener {
             if (SQLiteConnector.writeStoragePermission(cntx)) {

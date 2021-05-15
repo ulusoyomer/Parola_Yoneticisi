@@ -43,4 +43,5 @@
     <string name="yeni_parola_tekrar">Yeni Parola (Tekrar)</string>
     <string name="de_i_tir">Değiştir</string>
     <string name="veritaban_n_sil">Veritabanını Sil</string>
+    <string name="parola_uzunlugu">Parola Uzunlugu</string>
 </resources>

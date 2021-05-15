@@ -36,6 +36,18 @@
         app:layout_constraintStart_toStartOf="@+id/imgLogoHome"
         app:layout_constraintTop_toBottomOf="@+id/imgLogoHome" />
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="SMART_BANNER"
+        app:adUnitId="ca-app-pub-4281947210190697/4846571107"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/btnOpenDb"
         android:layout_width="wrap_content"
@@ -79,8 +91,12 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_TitleList"
-        app:layout_constraintWidth_max="400dp" />
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_max="400dp">
+
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

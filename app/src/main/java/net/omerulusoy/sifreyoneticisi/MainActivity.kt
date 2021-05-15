@@ -25,6 +25,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import es.dmoral.toasty.Toasty
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteConnector.SQLiteConnector
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteCreator.SQLiteCreator
@@ -44,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnNewDb: Button
     private lateinit var btnOpenDb: Button
 
+    lateinit var mAdView : AdView
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +59,11 @@ class MainActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(R.layout.activity_main)
+
+        MobileAds.initialize(this) {}
+        mAdView = findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
 
         dbList = findViewById(R.id.lvAllDb)
         btnOpenDb = findViewById(R.id.btnOpenDb)
@@ -201,7 +210,9 @@ class MainActivity : AppCompatActivity() {
         dbNames.clear()
         if (dbFiles != null) {
             for (dbFile in dbFiles as Array<out File>) {
-                dbNames.add(dbFile.name)
+                if (!dbFile.name.contains("androidx.work")&&
+                        !dbFile.name.contains("google_app"))
+                    dbNames.add(dbFile.name)
             }
         }
 

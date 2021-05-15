@@ -1,180 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SettingsFragment">
 
-    <Button
-        android:id="@+id/btnDBDelete"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/btn_settings_delete"
-        android:padding="5dp"
-        android:text="@string/sil"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/btnDBChangePassword"
-        app:layout_constraintTop_toBottomOf="@+id/btnDBChangePassword" />
+        tools:context=".SettingsFragment">
 
-    <TextView
-        android:id="@+id/tvSetDeleteDBTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/veritaban_n_sil"
-        android:textColor="@color/logo_blue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/tvSetNewPasswordAgTitle"
-        app:layout_constraintTop_toTopOf="@+id/btnDBDelete" />
+        <Button
+            android:id="@+id/btnDBDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/btn_settings_delete"
+            android:padding="5dp"
+            android:text="@string/sil"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/btnDBChangePassword"
+            app:layout_constraintTop_toBottomOf="@+id/btnDBChangePassword" />
 
-    <Button
-        android:id="@+id/btnDBChangePassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/btn_new_db"
-        android:padding="5dp"
-        android:text="@string/de_i_tir"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/etSetNewPasswordAg"
-        app:layout_constraintTop_toBottomOf="@+id/etSetNewPasswordAg" />
+        <TextView
+            android:id="@+id/tvSetDeleteDBTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/veritaban_n_sil"
+            android:textColor="@color/logo_blue"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tvSetNewPasswordAgTitle"
+            app:layout_constraintTop_toTopOf="@+id/btnDBDelete" />
 
-    <EditText
-        android:id="@+id/etSetNewPasswordAg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="@color/pink"
-        android:ems="10"
-        android:hint="@string/yeni_parola_tekrar"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:textColor="@color/logo_blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvSetNewPasswordAgTitle"
-        app:layout_constraintTop_toBottomOf="@+id/etSetNewPassword"
-        tools:ignore="TextFields" />
+        <Button
+            android:id="@+id/btnDBChangePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/btn_new_db"
+            android:padding="5dp"
+            android:text="@string/de_i_tir"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/etSetNewPasswordAg"
+            app:layout_constraintTop_toBottomOf="@+id/etSetNewPasswordAg" />
 
-    <TextView
-        android:id="@+id/tvSetNewPasswordAgTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/yeni_parola_tekrar"
-        android:textColor="@color/logo_blue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/tvSetNewPasswordTitle"
-        app:layout_constraintTop_toTopOf="@+id/etSetNewPasswordAg" />
+        <EditText
+            android:id="@+id/etSetNewPasswordAg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/pink"
+            android:ems="10"
+            android:hint="@string/yeni_parola_tekrar"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:textColor="@color/logo_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvSetNewPasswordAgTitle"
+            app:layout_constraintTop_toBottomOf="@+id/etSetNewPassword"
+            tools:ignore="TextFields" />
 
-    <EditText
-        android:id="@+id/etSetNewPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="@color/pink"
-        android:ems="10"
-        android:hint="@string/yeni_parola"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:textColor="@color/logo_blue"
-        app:layout_constraintStart_toStartOf="@+id/etSetNewPasswordAg"
-        app:layout_constraintTop_toBottomOf="@+id/etSetOldPassword"
-        tools:ignore="TextFields" />
+        <TextView
+            android:id="@+id/tvSetNewPasswordAgTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/yeni_parola_tekrar"
+            android:textColor="@color/logo_blue"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tvSetNewPasswordTitle"
+            app:layout_constraintTop_toTopOf="@+id/etSetNewPasswordAg" />
 
-    <TextView
-        android:id="@+id/tvSetNewPasswordTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/yeni_parola"
-        android:textColor="@color/logo_blue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/tvSetOldPasswordTitle"
-        app:layout_constraintTop_toTopOf="@+id/etSetNewPassword" />
+        <EditText
+            android:id="@+id/etSetNewPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/pink"
+            android:ems="10"
+            android:hint="@string/yeni_parola"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:textColor="@color/logo_blue"
+            app:layout_constraintStart_toStartOf="@+id/etSetNewPasswordAg"
+            app:layout_constraintTop_toBottomOf="@+id/etSetOldPassword"
+            tools:ignore="TextFields" />
 
-    <TextView
-        android:id="@+id/tvSetOldPasswordTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/eski_parola"
-        android:textColor="@color/logo_blue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/tvExportDBTitle"
-        app:layout_constraintTop_toTopOf="@+id/etSetOldPassword" />
+        <TextView
+            android:id="@+id/tvSetNewPasswordTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/yeni_parola"
+            android:textColor="@color/logo_blue"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tvSetOldPasswordTitle"
+            app:layout_constraintTop_toTopOf="@+id/etSetNewPassword" />
 
-    <TextView
-        android:id="@+id/tvChangePasswordDBTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/veritaban_parolas_n_de_i_tir"
-        android:textColor="@color/pink"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvExportDBTitle" />
+        <TextView
+            android:id="@+id/tvSetOldPasswordTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/eski_parola"
+            android:textColor="@color/logo_blue"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tvExportDBTitle"
+            app:layout_constraintTop_toTopOf="@+id/etSetOldPassword" />
 
-    <TextView
-        android:id="@+id/tvSettingsTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/logo_blue"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text="@string/ayarlar"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvChangePasswordDBTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/veritaban_parolas_n_de_i_tir"
+            android:textColor="@color/pink"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvExportDBTitle" />
 
-    <TextView
-        android:id="@+id/tvExportDBTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/veritaban_n_d_ar_aktar"
-        android:textColor="@color/logo_blue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnDBExport" />
+        <TextView
+            android:id="@+id/tvSettingsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/logo_blue"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/ayarlar"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnDBExport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/btn_new_db"
-        android:padding="5dp"
-        android:text="@string/aktar"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvExportDBTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvSettingsTitle" />
+        <TextView
+            android:id="@+id/tvExportDBTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/veritaban_n_d_ar_aktar"
+            android:textColor="@color/logo_blue"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnDBExport" />
 
-    <EditText
-        android:id="@+id/etSetOldPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/pink"
-        android:ems="10"
-        android:hint="@string/eski_parola"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:textColor="@color/logo_blue"
-        app:layout_constraintStart_toStartOf="@+id/etSetNewPasswordAg"
-        app:layout_constraintTop_toBottomOf="@+id/tvChangePasswordDBTitle"
-        tools:ignore="TextFields" />
+        <Button
+            android:id="@+id/btnDBExport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btn_new_db"
+            android:padding="5dp"
+            android:text="@string/aktar"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvExportDBTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvSettingsTitle" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/etSetOldPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/pink"
+            android:ems="10"
+            android:hint="@string/eski_parola"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:textColor="@color/logo_blue"
+            app:layout_constraintStart_toStartOf="@+id/etSetNewPasswordAg"
+            app:layout_constraintTop_toBottomOf="@+id/tvChangePasswordDBTitle"
+            tools:ignore="TextFields" />
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="SMART_BANNER"
+            app:adUnitId="ca-app-pub-4281947210190697/4846571107"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></com.google.android.gms.ads.AdView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

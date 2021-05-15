@@ -12,6 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.isVisible
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import es.dmoral.toasty.Toasty
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteConnector.SQLiteConnector
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteCreator.Tables.Account
@@ -26,6 +29,7 @@ class HomeFragment : Fragment() {
     private lateinit var accountsList: ArrayList<Account>
     private lateinit var tvEmptyList: TextView
     private lateinit var accountsListAdapter: UserAccountListAdapter
+    lateinit var mAdView : AdView
     lateinit var cntx: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +49,12 @@ class HomeFragment : Fragment() {
         lvAccountsList = view.findViewById(R.id.lv_AccountsList)
         searchView = view.findViewById(R.id.svAccountSeatch)
         tvEmptyList = view.findViewById(R.id.tvEmptyList)
+
+        MobileAds.initialize(cntx) {}
+        mAdView = view.findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+
         setAdapter(UserAccountListAdapter(cntx, accountsList))
         searchViewCreateListener()
 
@@ -125,10 +135,16 @@ class HomeFragment : Fragment() {
             val btnUpdate = view.findViewById<Button>(R.id.btnUpdate)
             val btnDelete = view.findViewById<Button>(R.id.btnDelete)
             val btnCopy = view.findViewById<Button>(R.id.btnCopy)
+            val btnCopyAccountName = view.findViewById<Button>(R.id.btnCopyAccountName)
 
             tvAccountID.text = accounts[position].id.toString()
             etAccountName.setText(accounts[position].name)
             etAccountPassword.setText(accounts[position].password)
+
+            btnCopyAccountName.setOnClickListener {
+                clickCopy("net.omerulusoy.sifreyoneticisi ${etAccountName.text} UserName",
+                    etAccountName.text.toString(),"${etAccountName.text} hesabının adı kopyalandı")
+            }
 
             btnUpdate.setOnClickListener {
                 val updateAccountLayout =

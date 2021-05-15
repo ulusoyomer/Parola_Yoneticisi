@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/splashScreenTheme">
-
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4281947210190697~5477605423"/>
         <activity android:name=".HomeActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>

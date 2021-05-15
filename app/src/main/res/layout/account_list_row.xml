@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:autofillHints="@string/kullan_c_ad"
             android:backgroundTint="@color/pink"
-            android:editable="true"
             android:ems="10"
+            android:enabled="false"
             android:hint="@string/kullan_c_ad"
             android:inputType="textPersonName"
             android:textAlignment="center"
@@ -46,8 +46,8 @@
             android:layout_marginTop="16dp"
             android:autofillHints="@string/ifre"
             android:backgroundTint="@color/pink"
-            android:editable="true"
             android:ems="10"
+            android:enabled="false"
             android:hint="@string/ifre"
             android:inputType="textPassword"
             android:textAlignment="center"
@@ -115,5 +115,14 @@
             app:layout_constraintEnd_toStartOf="@+id/etAccountPassword"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/etAccountPassword" />
+
+        <Button
+            android:id="@+id/btnCopyAccountName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="@+id/etAccountName"
+            app:layout_constraintStart_toStartOf="@+id/etAccountName"
+            app:layout_constraintTop_toTopOf="@+id/etAccountName" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

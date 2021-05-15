@@ -9,6 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import es.dmoral.toasty.Toasty
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteConnector.SQLiteConnector
 import net.omerulusoy.sifreyoneticisi.SQLiteOperations.SQLiteCreator.Tables.Account
@@ -29,6 +32,7 @@ class AddAccountFragment : Fragment() {
 
     private lateinit var sharedPreferences: SharedPreferences
 
+    lateinit var mAdView : AdView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +57,11 @@ class AddAccountFragment : Fragment() {
         npPassSize.maxValue = 30
         npPassSize.minValue = 5
         npPassSize.value = SQLiteConnector.returnPassLength(sharedPreferences)
+
+        MobileAds.initialize(cntx) {}
+        mAdView = view.findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
 
         btnAddAddAccount.setOnClickListener {
             val username = etAddAccountName.text.toString()
