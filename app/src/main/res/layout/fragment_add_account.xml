@@ -1,245 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddAccountFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvNumberTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/rakamalar_0_9"
-        android:textColor="@color/logo_blue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSymbolsTitle" />
+        <TextView
+            android:id="@+id/tvAddTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/logo_blue"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/yeni_hesap_kay_t"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Switch
-        android:id="@+id/swNumbers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="false"
-        android:thumbTint="@color/pink"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toEndOf="@+id/tvAlphabetTitle"
-        app:layout_constraintTop_toTopOf="@+id/tvNumberTitle"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="SMART_BANNER"
+            app:adUnitId="ca-app-pub-4281947210190697/4846571107"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvSymbolsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/semboller"
-        android:textColor="@color/logo_blue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTRCharsTitle" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddTitle">
 
-    <Switch
-        android:id="@+id/swSymbols"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="false"
-        android:thumbTint="@color/pink"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toEndOf="@+id/tvAlphabetTitle"
-        app:layout_constraintTop_toTopOf="@+id/tvSymbolsTitle"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+            <TextView
+                android:id="@+id/tvNumberTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/rakamalar_0_9"
+                android:textColor="@color/logo_blue"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSymbolsTitle" />
 
-    <TextView
-        android:id="@+id/tvTRCharsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/t_rk_e_karakterler"
-        android:textColor="@color/logo_blue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAlphabetTitle" />
+            <Switch
+                android:id="@+id/swNumbers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:thumbTint="@color/pink"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.513"
+                app:layout_constraintStart_toEndOf="@+id/tvAlphabetTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvNumberTitle"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-    <EditText
-        android:id="@+id/etAddAccountPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:autofillHints="@string/ifre"
-        android:backgroundTint="@color/pink"
-        android:ems="10"
-        android:hint="@string/ifre"
-        android:inputType="textPersonName"
-        android:textColor="@color/logo_blue"
-        app:layout_constraintEnd_toEndOf="@+id/etAddAccountName"
-        app:layout_constraintTop_toBottomOf="@+id/etAddAccountName"
-        tools:ignore="TextFields" />
+            <TextView
+                android:id="@+id/tvSymbolsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/semboller"
+                android:textColor="@color/logo_blue"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTRCharsTitle" />
 
-    <TextView
-        android:id="@+id/tvAddPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/ifre"
-        android:textColor="@color/logo_blue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/tvAddAccountName"
-        app:layout_constraintTop_toTopOf="@+id/etAddAccountPassword" />
+            <Switch
+                android:id="@+id/swSymbols"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:thumbTint="@color/pink"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.513"
+                app:layout_constraintStart_toEndOf="@+id/tvAlphabetTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvSymbolsTitle"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-    <TextView
-        android:id="@+id/tvAddTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/logo_blue"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text="@string/yeni_hesap_kay_t"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tvTRCharsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/t_rk_e_karakterler"
+                android:textColor="@color/logo_blue"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAlphabetTitle" />
 
-    <EditText
-        android:id="@+id/etAddAccountName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:autofillHints="@string/kullan_c_ad"
-        android:backgroundTint="@color/pink"
-        android:ems="10"
-        android:hint="@string/kullan_c_ad"
-        android:inputType="textPersonName"
-        android:textColor="@color/logo_blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvAddAccountName"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddTitle" />
+            <EditText
+                android:id="@+id/etAddAccountPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:autofillHints="@string/ifre"
+                android:backgroundTint="@color/pink"
+                android:ems="10"
+                android:hint="@string/ifre"
+                android:inputType="textPersonName"
+                android:textColor="@color/logo_blue"
+                app:layout_constraintEnd_toEndOf="@+id/etAddAccountName"
+                app:layout_constraintTop_toBottomOf="@+id/etAddAccountName"
+                tools:ignore="TextFields" />
 
-    <TextView
-        android:id="@+id/tvAddAccountName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/kullan_c_ad"
-        android:textColor="@color/logo_blue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etAddAccountName" />
+            <TextView
+                android:id="@+id/tvAddPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/ifre"
+                android:textColor="@color/logo_blue"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/tvAddAccountName"
+                app:layout_constraintTop_toTopOf="@+id/etAddAccountPassword" />
 
-    <Button
-        android:id="@+id/btnAddAddAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/btn_new_db"
-        android:padding="5dp"
-        android:text="@string/ekle"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/etAddAccountPassword"
-        app:layout_constraintTop_toBottomOf="@+id/etAddAccountPassword" />
+            <EditText
+                android:id="@+id/etAddAccountName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:autofillHints="@string/kullan_c_ad"
+                android:backgroundTint="@color/pink"
+                android:ems="10"
+                android:hint="@string/kullan_c_ad"
+                android:inputType="textPersonName"
+                android:textColor="@color/logo_blue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvAddAccountName"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnAddAutoPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/btn_new_db"
-        android:padding="5dp"
-        android:text="@string/ifre_olu_tur"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/btnAddAddAccount"
-        app:layout_constraintTop_toTopOf="@+id/btnAddAddAccount" />
+            <TextView
+                android:id="@+id/tvAddAccountName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/kullan_c_ad"
+                android:textColor="@color/logo_blue"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/etAddAccountName" />
 
-    <TextView
-        android:id="@+id/tvPasswordSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/ifre_olu_turma_ayarlar"
-        android:textColor="@color/pink"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddAutoPass" />
+            <Button
+                android:id="@+id/btnAddAddAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_new_db"
+                android:padding="5dp"
+                android:text="@string/ekle"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/etAddAccountPassword"
+                app:layout_constraintTop_toBottomOf="@+id/etAddAccountPassword" />
 
-    <Switch
-        android:id="@+id/swTRChar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="false"
-        android:thumbTint="@color/pink"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toEndOf="@+id/tvAlphabetTitle"
-        app:layout_constraintTop_toTopOf="@+id/tvTRCharsTitle"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+            <Button
+                android:id="@+id/btnAddAutoPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_new_db"
+                android:padding="5dp"
+                android:text="@string/ifre_olu_tur"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/btnAddAddAccount"
+                app:layout_constraintTop_toTopOf="@+id/btnAddAddAccount" />
 
-    <Switch
-        android:id="@+id/swAlphabet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="false"
-        android:thumbTint="@color/pink"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toEndOf="@+id/tvAlphabetTitle"
-        app:layout_constraintTop_toTopOf="@+id/tvAlphabetTitle"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+            <TextView
+                android:id="@+id/tvPasswordSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/ifre_olu_turma_ayarlar"
+                android:textColor="@color/pink"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnAddAutoPass" />
 
-    <TextView
-        android:id="@+id/tvAlphabetTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/t_m_alfabe_a_z"
-        android:textColor="@color/logo_blue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPasswordSettings" />
+            <Switch
+                android:id="@+id/swTRChar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:thumbTint="@color/pink"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.513"
+                app:layout_constraintStart_toEndOf="@+id/tvAlphabetTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvTRCharsTitle"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-    <NumberPicker
-        android:id="@+id/npPassSize"
-        android:layout_width="60dp"
-        android:layout_height="123dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/swNumbers"
-        app:layout_constraintTop_toBottomOf="@+id/swNumbers" />
+            <Switch
+                android:id="@+id/swAlphabet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:thumbTint="@color/pink"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.513"
+                app:layout_constraintStart_toEndOf="@+id/tvAlphabetTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvAlphabetTitle"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-    <TextView
-        android:id="@+id/tvNumberPickerTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/parola_uzunlugu"
-        android:textColor="@color/logo_blue"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/tvNumberTitle"
-        app:layout_constraintTop_toTopOf="@+id/npPassSize" />
+            <TextView
+                android:id="@+id/tvAlphabetTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/t_m_alfabe_a_z"
+                android:textColor="@color/logo_blue"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPasswordSettings" />
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        app:adSize="SMART_BANNER"
-        app:adUnitId="ca-app-pub-4281947210190697/4846571107"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <NumberPicker
+                android:id="@+id/npPassSize"
+                android:layout_width="60dp"
+                android:layout_height="123dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/swNumbers"
+                app:layout_constraintTop_toBottomOf="@+id/swNumbers" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tvNumberPickerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="@string/parola_uzunlugu"
+                android:textColor="@color/logo_blue"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/tvNumberTitle"
+                app:layout_constraintTop_toTopOf="@+id/npPassSize" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

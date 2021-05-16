@@ -7,7 +7,7 @@
     android:paddingBottom="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_user_account_row_background"
         android:padding="8dp"
@@ -59,13 +59,12 @@
             android:id="@+id/btnUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/btn_home_style"
             android:text="@string/g_ncelle"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvAccountPassword"
             app:layout_constraintTop_toBottomOf="@+id/etAccountPassword" />
 
         <Button
@@ -73,10 +72,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/btn_home_style"
             android:text="@string/sil"
             android:textColor="@color/white"
             android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/btnCopy"
             app:layout_constraintStart_toEndOf="@+id/btnUpdate"
             app:layout_constraintTop_toTopOf="@+id/btnUpdate" />
 
@@ -96,6 +97,7 @@
             android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="@string/kullan_c_ad"
             android:textColor="@color/white"
@@ -108,6 +110,7 @@
             android:id="@+id/tvAccountPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="@string/ifre"
             android:textColor="@color/white"
